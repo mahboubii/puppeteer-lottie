@@ -88,7 +88,7 @@ module.exports = async (opts) => {
 
   ow(output, ow.string.nonEmpty, 'output')
   ow(deviceScaleFactor, ow.number.integer.positive, 'deviceScaleFactor')
-  ow(renderer, ow.string.oneOf([ 'svg', 'canvas', 'html' ], 'renderer'))
+  ow(renderer, ow.string.oneOf(['svg', 'canvas', 'html'], 'renderer'))
   ow(rendererSettings, ow.object.plain, 'rendererSettings')
   ow(puppeteerOptions, ow.object.plain, 'puppeteerOptions')
   ow(ffmpegOptions, ow.object.exactShape({
@@ -372,7 +372,7 @@ ${inject.body || ''}
   }
 
   if (isMp4) {
-    const spinnerF = !quiet && ora(`Generating mp4 with FFmpeg`).start()
+    const spinnerF = !quiet && ora('Generating mp4 with FFmpeg').start()
 
     ffmpegStdin.end()
     await ffmpegP
@@ -381,7 +381,7 @@ ${inject.body || ''}
       spinnerF.succeed()
     }
   } else if (isGif) {
-    const spinnerG = !quiet && ora(`Generating GIF with Gifski`).start()
+    const spinnerG = !quiet && ora('Generating GIF with Gifski').start()
 
     const framePattern = tempOutput.replace('%012d', '*')
     const escapePath = arg => arg.replace(/(\s+)/g, '\\$1')
@@ -396,7 +396,7 @@ ${inject.body || ''}
     ].filter(Boolean)
 
     const executable = process.env.GIFSKI_PATH || 'gifski'
-    const cmd = [ executable ].concat(params).join(' ')
+    const cmd = [executable].concat(params).join(' ')
 
     await execa.shell(cmd)
 
